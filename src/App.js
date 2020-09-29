@@ -26,7 +26,6 @@ function App() {
           <Route path="/:username" element={<Profile />} />
           <Route path="/:username/:reponame" element={<Repo />} />
         </Routes>
-
         <Footer />
 
         <GlobalStyles />
