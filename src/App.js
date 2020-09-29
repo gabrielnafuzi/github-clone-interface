@@ -2,27 +2,37 @@ import 'react-calendar-heatmap/dist/styles.css';
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 
 import GlobalStyles from './styles/GlobalStyles';
 import Header from './components/Header';
 import Profile from './pages/Profile';
 import Repo from './pages/Repo';
+import Footer from './components/Footer';
 
-const App = () => {
+import { themes } from './styles/theme';
+
+function App() {
+  const [themeName, setThemeName] = React.useState('light');
+  const currentTheme = themes[themeName];
+
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Profile />} />
-        <Route path="/:username" element={<Profile />} />
-        <Route path="/:username/:reponame" element={<Repo />} />
-      </Routes>
+    <ThemeProvider theme={currentTheme}>
+      <BrowserRouter>
+        <Header themeName={themeName} setThemeName={setThemeName} />
 
-      {/* <Footer /> */}
+        <Routes>
+          <Route path="/" element={<Profile />} />
+          <Route path="/:username" element={<Profile />} />
+          <Route path="/:username/:reponame" element={<Repo />} />
+        </Routes>
 
-      <GlobalStyles />
-    </BrowserRouter>
+        <Footer />
+
+        <GlobalStyles />
+      </BrowserRouter>
+    </ThemeProvider>
   );
-};
+}
 
 export default App;
